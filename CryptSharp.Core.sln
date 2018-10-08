@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptSharp.Core", "CryptSharp.Core\CryptSharp.Core.csproj", "{86DF5714-3B5F-4C92-B8AA-44A80DEB71B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptSharp.Core.Test", "CryptSharp.Core.Test\CryptSharp.Core.Test.csproj", "{CCF76740-6DEC-481B-B75A-F61B1BAC78C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86DF5714-3B5F-4C92-B8AA-44A80DEB71B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86DF5714-3B5F-4C92-B8AA-44A80DEB71B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86DF5714-3B5F-4C92-B8AA-44A80DEB71B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86DF5714-3B5F-4C92-B8AA-44A80DEB71B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCF76740-6DEC-481B-B75A-F61B1BAC78C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCF76740-6DEC-481B-B75A-F61B1BAC78C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCF76740-6DEC-481B-B75A-F61B1BAC78C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCF76740-6DEC-481B-B75A-F61B1BAC78C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {965FE63B-51E3-4206-881D-177AC0234EEE}
+	EndGlobalSection
+EndGlobal
