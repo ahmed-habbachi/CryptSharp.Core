@@ -30,7 +30,7 @@ namespace CryptSharp.Core
             ExtendedDes = new ExtendedDesCrypter();
             Ldap = new LdapCrypter(CrypterEnvironment.Default);
             MD5 = new MD5Crypter();
-            MSMD5 = new MSMD5Crypter();
+            Joomla = new JoomlaCrypter();
             Phpass = new PhpassCrypter();
             Sha256 = new Sha256Crypter();
             Sha512 = new Sha512Crypter();
@@ -94,7 +94,7 @@ namespace CryptSharp.Core
         /// <summary>
         /// Microsoft MD5 crypt, supported by nearly all systems. A variant supports Apache htpasswd files.
         /// </summary>
-        public static MSMD5Crypter MSMD5
+        public static JoomlaCrypter Joomla
         {
             get;
             private set;

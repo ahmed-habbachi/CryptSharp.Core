@@ -4,11 +4,11 @@ using System.Security.Cryptography;
 
 namespace CryptSharp.Core
 {
-    public class MSMD5Crypter
+    public class JoomlaCrypter
     {
         public MD5 MD5Hash { get; set; }
 
-        public MSMD5Crypter()
+        public JoomlaCrypter()
         {
             MD5Hash = MD5.Create();
         }
@@ -40,17 +40,24 @@ namespace CryptSharp.Core
         /// <returns></returns>
         public bool CheckPassword(string password, string hash)
         {
-            var passwordPair = hash.Split(':');
-
-            if (passwordPair.Length == 2)
+            if (hash.StartsWith("$P$"))
             {
-                hash = passwordPair[0];
-                password = password + passwordPair[1];
+                return Crypter.CheckPassword(password, hash);
             }
+            else
+            {
+                var passwordPair = hash.Split(':');
 
-            string hashOfInput = Crypt(password);
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-            return (0 == comparer.Compare(hashOfInput, hash));
+                if (passwordPair.Length == 2)
+                {
+                    hash = passwordPair[0];
+                    password = password + passwordPair[1];
+                }
+
+                string hashOfInput = Crypt(password);
+                StringComparer comparer = StringComparer.OrdinalIgnoreCase;
+                return (0 == comparer.Compare(hashOfInput, hash));
+            }
         }
     }
 }
