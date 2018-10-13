@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Security.Cryptography;
+using CryptSharp.Core.Internal;
 
 namespace CryptSharp.Core
 {
@@ -14,24 +15,25 @@ namespace CryptSharp.Core
         /// <returns></returns>
         public bool CheckPassword(string password, string hash)
         {
-            if (hash.StartsWith("$P$"))
-            {
-                return Crypter.CheckPassword(password, hash);
-            }
-            else
-            {
-                var passwordPair = hash.Split(':');
+            Check.Null("password", password);
+            Check.Null("hash", hash);
 
-                if (passwordPair.Length == 2)
-                {
-                    hash = passwordPair[0];
-                    password = password + passwordPair[1];
-                }
-
-                string hashOfInput = Crypter.MD5.Crypt(password);
-                StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-                return (0 == comparer.Compare(hashOfInput, hash));
+            var hashPair = hash.Split(':');
+            if (hashPair.Length != 2)
+            {
+                throw new Exception("Incompatible hash!");
             }
+
+            string hashOfInput = Crypter.MD5.Crypt(password + hashPair[1]);
+            return string.Equals(hashOfInput, hashPair[0], StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public string Crypt(string password, string salt)
+        {
+            Check.Null("password", password);
+            Check.Null("salt", salt);
+            var hash = Crypter.MD5.Crypt(password + salt);
+            return $"{hash}:{salt}";
         }
     }
 }
