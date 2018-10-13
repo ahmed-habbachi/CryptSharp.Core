@@ -18,6 +18,12 @@ namespace CryptSharp.Core
         /// Apache htpasswd files have a different prefix.
         /// Due to the nature of MD5 crypt, this also affects the crypted password.
         /// </summary>
-        Apache
+        Apache,
+
+        /// <summary>
+        /// Unsalted MD5
+        /// </summary>
+        Unsalted
+
     }
 }

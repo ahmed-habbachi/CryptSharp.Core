@@ -6,32 +6,6 @@ namespace CryptSharp.Core
 {
     public class JoomlaCrypter
     {
-        public MD5 MD5Hash { get; set; }
-
-        public JoomlaCrypter()
-        {
-            MD5Hash = MD5.Create();
-        }
-
-        /// <summary>
-        /// Generate a MD5 hash
-        /// </summary>
-        /// <param name="md5Hash">MD5 Cryptography</param>
-        /// <param name="password">Input to hash</param>
-        /// <returns>md5 hashed input</returns>
-        public string Crypt(string password)
-        {
-            byte[] data = MD5Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-            StringBuilder sBuilder = new StringBuilder();
-
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            return sBuilder.ToString();
-        }
-
         /// <summary>
         /// Verify a hash against a string.
         /// </summary>
@@ -54,7 +28,7 @@ namespace CryptSharp.Core
                     password = password + passwordPair[1];
                 }
 
-                string hashOfInput = Crypt(password);
+                string hashOfInput = Crypter.MD5.Crypt(password);
                 StringComparer comparer = StringComparer.OrdinalIgnoreCase;
                 return (0 == comparer.Compare(hashOfInput, hash));
             }

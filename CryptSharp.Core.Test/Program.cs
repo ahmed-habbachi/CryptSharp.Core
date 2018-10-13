@@ -36,8 +36,14 @@ namespace CryptSharp.Core.Test
             Console.WriteLine();
 
             //Joomla first type
-            var result1 = Crypter.Joomla.CheckPassword("270919", "$P$DqocvKJjMTUGOZf1RrY04x4nHsIiWi0");
-            System.Console.WriteLine($"Joomla type1: {result1}");
+            var result1 = Crypter.MD5.Crypt("270919");
+            System.Console.WriteLine($"Unsalted MD5 type: {result1 == "5a26742be1d1a6382f030ce9002c716c"}");
+            Console.WriteLine();
+
+            var result2 = Crypter.MD5.Crypt("270919", new CrypterOptions(){
+                {CrypterOption.Variant, MD5CrypterVariant.Unsalted}
+            });
+            System.Console.WriteLine($"Unsalted MD5 type using variant: {result2 == "5a26742be1d1a6382f030ce9002c716c"}");
             Console.WriteLine();
 
             //MD5

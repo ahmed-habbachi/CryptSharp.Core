@@ -47,6 +47,7 @@ namespace CryptSharp.Core
             {
                 case MD5CrypterVariant.Standard: prefix = "$1$"; break;
                 case MD5CrypterVariant.Apache: prefix = "$apr1$"; break;
+                case MD5CrypterVariant.Unsalted: return String.Empty;
                 default: throw Exceptions.ArgumentOutOfRange("CrypterOption.Variant", "Unknown variant.");
             }
 
@@ -59,7 +60,36 @@ namespace CryptSharp.Core
             Check.Null("salt", salt);
 
             return salt.StartsWith("$1$")
-                || salt.StartsWith("$apr1$");
+                || salt.StartsWith("$apr1$")
+                || IsMD5(salt);
+        }
+
+        private static bool IsMD5(string input)
+        {
+            if (String.IsNullOrEmpty(input))
+            {
+                return false;
+            }
+
+            return System.Text.RegularExpressions.Regex.IsMatch(input, "^[0-9a-fA-F]{32}$", RegexOptions.Compiled);
+        }
+
+        public new string Crypt(string password)
+        {
+            return Crypt(Encoding.UTF8.GetBytes(password));
+        }
+
+        public new string Crypt(Byte[] password)
+        {
+            byte[] data = System.Security.Cryptography.MD5.Create().ComputeHash(password);
+            StringBuilder sBuilder = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            return sBuilder.ToString().ToLower();
         }
 
         /// <inheritdoc />
@@ -67,6 +97,11 @@ namespace CryptSharp.Core
         {
             Check.Null("password", password);
             Check.Null("salt", salt);
+
+            if (string.IsNullOrEmpty(salt))
+            {
+                return Crypt(password);
+            }
 
             Match match = _regex.Match(salt);
             if (!match.Success) { throw Exceptions.Argument("salt", "Invalid salt."); }
@@ -112,7 +147,7 @@ namespace CryptSharp.Core
                 FinishDigest(A);
 
                 I = (byte[])A.Hash.Clone();
-                
+
                 A.Initialize();
                 AddToDigest(A, key);
                 AddToDigest(A, prefix);
@@ -128,7 +163,7 @@ namespace CryptSharp.Core
                 }
                 FinishDigest(A);
 
-                H = (byte[])A.Hash.Clone();                
+                H = (byte[])A.Hash.Clone();
 
                 for (int i = 0; i < 1000; i++)
                 {
