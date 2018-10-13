@@ -44,6 +44,7 @@ namespace CryptSharp.Core
             crypters.Add(Crypter.Ldap);
             crypters.Add(Crypter.ExtendedDes);
             crypters.Add(Crypter.TraditionalDes);
+            crypters.Add(Crypter.Joomla);
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace CryptSharp.Core
         }
 
         /// <summary>
-        /// MD5 crypt, supported by nearly all systems. A variant supports Apache htpasswd files.
+        /// MD5 crypt, supported by nearly all systems. A variant supports Apache htpasswd files and an Unsalted variant.
         /// </summary>
         public static MD5Crypter MD5
         {
@@ -92,7 +93,7 @@ namespace CryptSharp.Core
         }
 
         /// <summary>
-        /// Microsoft MD5 crypt, supported by nearly all systems. A variant supports Apache htpasswd files.
+        ///  Joomla Crypter.
         /// </summary>
         public static JoomlaCrypter Joomla
         {
