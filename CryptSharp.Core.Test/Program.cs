@@ -46,24 +46,12 @@ namespace CryptSharp.Core.Test
             System.Console.WriteLine($"Unsalted MD5 type using variant: {result2 == "5a26742be1d1a6382f030ce9002c716c"}");
             Console.WriteLine();
 
-            //MD5
-            var md5hash = Crypter.Joomla.Crypt("270919");
-            var result3 = string.Equals(md5hash, "5a26742be1d1a6382f030ce9002c716c", StringComparison.OrdinalIgnoreCase);
-            var checkResult = Crypter.Joomla.CheckPassword("270919", "5a26742be1d1a6382f030ce9002c716c");
-            System.Console.WriteLine($"MD5: {result3}");
-            System.Console.WriteLine($"MD5: {checkResult}");
-
+            var result3 = Crypter.CheckPassword("270919", "5a26742be1d1a6382f030ce9002c716c");
+            System.Console.WriteLine($"Check md5 password using the Crypter checkPassword: {result3}");
             Console.WriteLine();
 
-            //Joomla second type
-            //password: 628157
-            // original input: 241119dbb64cdcdfd7e6a2ed7c53dcc0:npce2HRmjoF4KvW3GlGvrZOLtmcv8lKC
-            //var saltedMD5Hash = Crypter.MSMD5.Crypt("628157");
-            //var result2 = string.Equals(saltedMD5Hash, "241119dbb64cdcdfd7e6a2ed7c53dcc0:npce2HRmjoF4KvW3GlGvrZOLtmcv8lKC", StringComparison.OrdinalIgnoreCase);
-            checkResult = Crypter.Joomla.CheckPassword("628157", "241119dbb64cdcdfd7e6a2ed7c53dcc0:npce2HRmjoF4KvW3GlGvrZOLtmcv8lKC");
-            //System.Console.WriteLine($"Joomla type2: {result2}");
-            System.Console.WriteLine($"Joomla type2: {checkResult}");
-
+            var result4 = Crypter.CheckPassword("628157", "241119dbb64cdcdfd7e6a2ed7c53dcc0:npce2HRmjoF4KvW3GlGvrZOLtmcv8lKC");
+            System.Console.WriteLine($"Check Joomla password using the Crypter checkPassword: {result4}");
             Console.WriteLine();
 
             //BaseEncoding.TestVectors.Test();

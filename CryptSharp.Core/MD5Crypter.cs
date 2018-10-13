@@ -82,8 +82,13 @@ namespace CryptSharp.Core
         public new string Crypt(Byte[] password)
         {
             byte[] data = System.Security.Cryptography.MD5.Create().ComputeHash(password);
-            StringBuilder sBuilder = new StringBuilder();
 
+            return ConvertToString(data);
+        }
+
+        public static string ConvertToString(byte[] data)
+        {
+            StringBuilder sBuilder = new StringBuilder();
             for (int i = 0; i < data.Length; i++)
             {
                 sBuilder.Append(data[i].ToString("x2"));
@@ -104,7 +109,19 @@ namespace CryptSharp.Core
             }
 
             Match match = _regex.Match(salt);
-            if (!match.Success) { throw Exceptions.Argument("salt", "Invalid salt."); }
+            if (!match.Success)
+            {
+                var hash = Crypt(password);
+                var matchUnsalted = string.Equals(hash, salt, StringComparison.InvariantCultureIgnoreCase);
+                if (matchUnsalted)
+                {
+                    return hash;
+                }
+                else
+                {
+                    throw Exceptions.Argument("salt", "Invalid salt.");
+                }
+            }
 
             byte[] prefixBytes = null, saltBytes = null, formattedKey = null, truncatedSalt = null, crypt = null;
             try
